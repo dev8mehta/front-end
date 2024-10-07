@@ -1,0 +1,63 @@
+.App {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: rgb(46, 46, 46);
+    margin: 0;
+    padding-top: 10%;
+    }
+
+.title {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: aqua;
+    font-size: 2rem;
+    margin: 0; 
+}
+
+.displayText {
+    max-width: 80%;
+    width: 80vw;
+    max-height: 60%;
+    height: 60vh;
+    background-color: rgb(46, 46, 46);
+    padding: 2vw 2vh;
+    border-radius: 25px;
+    font-size: 2vw;
+    color: white;
+    border: 2px solid white;
+    
+}
+.inputBubble {
+    width: 80vw;
+    display: flex;
+    position: fixed;
+    bottom: 20px; /* Keep it slightly above the bottom edge */
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 30px;
+    padding: 10px 20px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+}
+.input-box {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1.5vw;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+}
+.send-button {
+    background-color: rgb(46, 46, 46);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.5vw;
+    margin-left: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}
