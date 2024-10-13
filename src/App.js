@@ -29,7 +29,7 @@ const MessagesContainer = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column-reverse;
-  justify-content: space-between;
+  justify-content: flex-start;
   overflow: auto;
   height: 80vh;
   scroll-behavior: smooth;
