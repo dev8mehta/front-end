@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 //import './App.css';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const ChatContainer = styled.div`
@@ -77,6 +77,15 @@ const App = () => {
     { text: 'Hello! How can I assist you today?', isBot: true },
   ]);
   const [userInput, setUserInput] = useState('');
+
+  const messagesEndRef = useRef(null);
+
+  // Scroll to the bottom when messages change
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
 
   // Handle sending a new message
   const handleSendMessage = () => {
