@@ -95,7 +95,7 @@ const App = () => {
 
   return (
     <ChatContainer>
-      <Header>ISOtope's RAG</Header>
+      <Header>ISOtope's RAGatouille Chatbot</Header>
       <MessagesContainer>
         {messages.map((msg, index) => (
           <Message key={index} isBot={msg.isBot}>
