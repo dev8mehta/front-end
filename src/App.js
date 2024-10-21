@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const ChatContainer = styled.div`
-  paddingLeft: 50px;
+  padding-left: 50px;  
   border: 1px solid #ddd;
   border-radius: 10px;
   display: flex;
@@ -21,7 +21,7 @@ const Header = styled.div`
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  font-size:2vw;
+  font-size: 2vw;
 `;
 
 const MessagesContainer = styled.div`
@@ -42,7 +42,6 @@ const Message = styled.div`
   border-radius: 10px;
   margin: 5px 0;
   align-self: ${(props) => (props.isBot ? 'flex-start' : 'flex-end')};
-  float: ${(props) => (props.isBot ? 'left' : 'right')};
   overflow-wrap: break-word;
   max-width: 75%;
   font-family: Arial, Helvetica, sans-serif;
@@ -58,8 +57,6 @@ const TextInput = styled.textarea`
   padding: 15px;
   border: none;
   outline: none;
-  display: flex;
-  overflow-wrap: break-word;
   resize: none;
 `;
 
@@ -78,18 +75,35 @@ const App = () => {
   ]);
   const [userInput, setUserInput] = useState('');
 
+  // Function to call the back-end API
+  const fetchRetrievedInfo = async (user_query) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/retrieve', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_query: user_query }), // Change this line
+      }); 
+      const data = await response.json();
+      return data.retrievedInfo;
+    } catch (error) {
+      console.error('Error fetching retrieved info:', error);
+      return 'Sorry, there was an error retrieving the information.';
+    }
+  };
+
   // Handle sending a new message
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (userInput.trim()) {
       const userMessage = { text: userInput, isBot: false };
       setMessages([userMessage, ...messages]);
       setUserInput('');
-      
-      // Simulate bot response
-      setTimeout(() => {
-        const botMessage = { text: 'I am a function, not an AI. This is pre-written text.', isBot: true };
-        setMessages((prevMessages) => [botMessage, ...prevMessages]);
-      }, 1000); // Response delay to simulate real interaction
+
+      // Fetch retrieved information from the back-end
+      const retrievedInfo = await fetchRetrievedInfo(userInput);
+      const botMessage = { text: retrievedInfo, isBot: true };
+      setMessages((prevMessages) => [botMessage, ...prevMessages]);
     }
   };
 
@@ -105,7 +119,6 @@ const App = () => {
       </MessagesContainer>
       <InputContainer>
         <TextInput
-          type="text"
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
           placeholder="Type your message..."
